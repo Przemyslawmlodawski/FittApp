@@ -20,8 +20,8 @@ function LoginForm({ Login, error }) {
         })
         const data = await response.json()
         if (data.user) {
-
-            window.location.href = '/LoginSuccess'
+            localStorage.setItem('token', data.user);
+            window.location.href = '/dashboard'
         } else {
             alert('Niepoprawna nazwa użytkownika bądź hasło')
         }

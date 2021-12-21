@@ -40,5 +40,34 @@ app.post('/api/login', async (req, res) => {
         return res.json({ status: 'nok', user: false })
     }
 })
+app.get('/api/quote', async (req, res) => {
 
+    const token = req.headers['x-access-token'];
+    try {
+        const decoded = jwt.verify(token, 'secret123')
+        const username = decoded.username;
+        const user = await User.findOne({ username: username })
+
+        return { status: 'ok', quote: user.quote }
+    }
+    catch (error) {
+        console.log(error)
+        res.json({ status: 'erorr', error: 'invalid token' })
+    }
+})
+app.post('/api/quote', async (req, res) => {
+
+    const token = req.headers['x-access-token'];
+    try {
+        const decoded = jwt.verify(token, 'secret123')
+        const username = decoded.username;
+        const user = await User.updateOne({ username: username }, { $set: { quote: req.body.quote } })
+
+        return { status: 'ok' }
+    }
+    catch (error) {
+        console.log(error)
+        res.json({ status: 'erorr', error: 'invalid token' })
+    }
+})
 app.listen(1337, () => { console.log('server') })

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 
 import { useState } from 'react'
-import FormSuccess from './FormSuccess'
+import LoginForm from './LoginForm'
 import image from '../../images/img-2.svg'
 import '../register/Form.css';
 import LoginSuccess from './LoginSuccess'

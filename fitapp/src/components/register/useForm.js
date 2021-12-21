@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useHistory } from 'react-router-dom'
 
 const useForm = (callback, validate) => {
     const [values, setValues] = useState({
@@ -7,6 +8,7 @@ const useForm = (callback, validate) => {
         password: '',
         password2: ''
     })
+    const history = useHistory();
     const [errors, setErrors] = useState({})
     const [isSubmit, setIsSubmit] = useState(false)
     const handleChange = e => {
@@ -35,6 +37,9 @@ const useForm = (callback, validate) => {
             }),
         })
         const data = await response.json()
+        if (data.status == 'ok') {
+            history.push('/log-in')
+        }
         console.log(data);
 
         setErrors(validate(values))
