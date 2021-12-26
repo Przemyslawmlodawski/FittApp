@@ -8,6 +8,7 @@ import { SidebarContainer } from "./components/Sidebar/SidebarElement";
 import Sidebar from './components/Sidebar/Sidebar'
 import LoginSuccess from "./components/Login/LoginSuccess";
 import Dashboard from './components/Dashboard/Dashboard'
+import Customers from "./components/Dashboard/Customers";
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/log-in" exact component={Login}></Route>
           <Route path="/LoginSuccess" exact component={LoginSuccess}></Route>
           <Route path="/dashboard" exact component={Dashboard}></Route>
+          <Route path='/customers' component={Customers}></Route>
         </Switch>
       </Router>
     </>

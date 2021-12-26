@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import { useEffect } from 'react/cjs/react.development';
 import jwt from 'jsonwebtoken'
 import { useHistory } from 'react-router-dom'
-
+import { useState } from 'react'
+import '../../assets/boxicons-2.0.7/css/boxicons.min.css'
+import '../../assets/css/grid.css'
+import '../../assets/css/index.css'
+import Layout from './Layout/Layout';
 const Dashboard = () => {
     const history = useHistory()
+    const [quote, setQuote] = useState('');
     async function populateQuote() {
-        const req = await fetch('http://localhost:1337/api/quote', {
+        await fetch('http://localhost:1337/api/quote', {
             headers: {
                 'x-access-token': localStorage.getItem('token')
             }
-        })
-        const data = req.json();
-        console.log(data)
+        }).then(res => res.json())
+            .then(data => setQuote(data.quote))
+
     }
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -27,7 +32,11 @@ const Dashboard = () => {
             }
         }
     }, [])
-    return <h1>Siema</h1>
+    return (
+        <Layout username={quote} />
+
+
+    )
 }
 
 export default Dashboard;

@@ -48,26 +48,12 @@ app.get('/api/quote', async (req, res) => {
         const username = decoded.username;
         const user = await User.findOne({ username: username })
 
-        return { status: 'ok', quote: user.quote }
+        return res.json({ status: 'ok', quote: user.username })
     }
     catch (error) {
         console.log(error)
         res.json({ status: 'erorr', error: 'invalid token' })
     }
 })
-app.post('/api/quote', async (req, res) => {
 
-    const token = req.headers['x-access-token'];
-    try {
-        const decoded = jwt.verify(token, 'secret123')
-        const username = decoded.username;
-        const user = await User.updateOne({ username: username }, { $set: { quote: req.body.quote } })
-
-        return { status: 'ok' }
-    }
-    catch (error) {
-        console.log(error)
-        res.json({ status: 'erorr', error: 'invalid token' })
-    }
-})
 app.listen(1337, () => { console.log('server') })
