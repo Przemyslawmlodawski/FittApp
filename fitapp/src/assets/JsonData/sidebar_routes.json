@@ -1,7 +1,7 @@
 [
     {
         "display_name": "Dashboard",
-        "route": "/dashboard/",
+        "route": "/dashboard",
         "icon": "bx bx-category-alt"
     },
     {

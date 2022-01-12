@@ -7,7 +7,7 @@ import dashboardContent from '../dashboardContent'
 const Routes = () => {
     return (
         <Switch>
-            <Route path='/dashboard/' component={dashboardContent}></Route>
+            <Route path='/dashboard' component={dashboardContent}></Route>
             <Route path='/customers' component={Customers}></Route>
         </Switch>
     )

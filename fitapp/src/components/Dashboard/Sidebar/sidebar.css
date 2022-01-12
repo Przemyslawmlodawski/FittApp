@@ -21,3 +21,32 @@
     height: 45px;
     
 }
+.sidebar_item{
+    padding: 0 20px;
+}
+.sidebar__item-inner {
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    transition: color .3s ease 0;
+}
+.siderbar__item-inner > i{
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+.siderbar__item-inner > span {
+    text-transform: capitalize;
+}
+.sidebar__item-inner:hover{
+    color: var(--main-color)
+}
+.sidebar__item-inner.active{
+    border-radius: var(--border-radius);
+    background-image: linear-gradient(
+        to right,
+        var(--main-color),
+        var(--second-color)
+    );
+    color: var(--txt-white);
+}
