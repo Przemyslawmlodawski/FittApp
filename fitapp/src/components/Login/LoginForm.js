@@ -1,50 +1,61 @@
 import React, { useState } from 'react'
 import '../register/Form.css';
-import { Link } from 'react-router-dom'
-import LoginSuccess from './LoginSuccess';
-import image from '../../images/img-3.svg'
-function LoginForm({ Login, error }) {
-    const [details, setDetails] = useState({ username: "", password: "" })
-    async function handleSubmit(e) {
-        e.preventDefault();
-        const response = await fetch('http://localhost:1337/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                ...details,
+import { Link, useHistory } from 'react-router-dom'
+import axios from 'axios'
+import { showErrMsg, showSuccessMsg } from '../utils/notification/Notification'
+import { dispatchLogin } from '../../redux/actions/authAction'
+import { useDispatch } from 'react-redux'
+import Nav from '../navBar/Navbar'
+const initialState = {
+    email: '',
+    password: '',
+    err: '',
+    success: ''
+}
+function LoginForm() {
+    const [user, setUser] = useState(initialState)
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const { email, password, err, success } = user
 
+    const handleChangeInput = (e) => {
+        const { name, value } = e.target
 
-            }),
-        })
-        const data = await response.json()
-        if (data.user) {
-            localStorage.setItem('token', data.user);
-            window.location.href = '/dashboard'
-        } else {
-            alert('Niepoprawna nazwa użytkownika bądź hasło')
-        }
-        console.log(data)
-
+        setUser({ ...user, [name]: value, err: '', success: '' })
 
     }
+    const handleSubmit = async e => {
+        e.preventDefault();
+        try {
+            const res = await axios.post('/user/login', { email, password })
+            setUser({ ...user, err: '', success: res.data.message })
+
+            localStorage.setItem('firstLogin', true)
+            dispatch(dispatchLogin())
+            // history.push('/dashboard')
+        } catch (error) {
+            console.log(err)
+            error.response.data.message && setUser({ ...user, err: error.response.data.message, success: '' })
+        }
+    }
+
     return (
 
         <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit} >
                 <h1>Zaloguj się !</h1>
-
+                {err && showErrMsg(err)}
+                {success && showSuccessMsg(success)}
                 <div className="form-inputs">
                     <label htmlFor="username" className="form-label">
-                        username
+                        Email Adress
                     </label>
                     <input
                         id="username"
-                        type="text" className="form-input" name="username"
-                        placeholder="wprowadz nazwe"
-                        value={details.username}
-                        onChange={e => setDetails({ ...details, username: e.target.value })}
+                        type="text" className="form-input" name="email"
+                        placeholder="Wprowadź swój adres email"
+                        value={email}
+                        onChange={handleChangeInput}
                     />
                     {/* {errors.username && <p>{errors.username}</p>} */}
                 </div>
@@ -53,14 +64,15 @@ function LoginForm({ Login, error }) {
                         password
                     </label>
                     <input id="password" type="password" className="form-input" name="password"
-                        placeholder="wprowadz swoje haslo"
-                        value={details.password}
-                        onChange={e => setDetails({ ...details, password: e.target.value })}
+                        placeholder="Wprowadz swoje haslo"
+                        value={password}
+                        onChange={handleChangeInput}
                     />
                     {/* {errors.password && <p>{errors.password}</p>} */}
 
                 </div>
                 <button className="form-input-btn" type="submit">Zaloguj się!</button><br />
+                <Link to="/forgot_password">Zapomniałeś hasła?</Link>
                 <span className="form-input-login">Nie masz jeszcze konta?<Link to="/sign-up"> Zarejestruj się</Link> </span>
             </form>
         </div >

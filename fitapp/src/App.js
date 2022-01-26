@@ -9,6 +9,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 import LoginSuccess from "./components/Login/LoginSuccess";
 import Dashboard from './components/Dashboard/Dashboard'
 import Customers from "./components/Dashboard/Customers";
+import ActivationEmail from "./components/Dashboard/auth/ActivationEmail";
 
 
 function App() {
@@ -19,9 +20,10 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home}></Route>
           <Route path="/sign-up" exact component={Form}></Route>
-          <Route path="/log-in" exact component={Login}></Route>
+          <Route path="/login" exact component={Login}></Route>
           <Route path="/LoginSuccess" exact component={LoginSuccess}></Route>
           <Route path="/dashboard/" component={Dashboard} ></Route>
+          <Route path="/user/activate/:activation_token" component={ActivationEmail} ></Route>
 
         </Switch>
       </Router>

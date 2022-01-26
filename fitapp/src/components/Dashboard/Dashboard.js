@@ -16,23 +16,7 @@ const store = createStore(rootReducer)
 const Dashboard = () => {
     const history = useHistory()
     const [quote, setQuote] = useState('');
-    async function populateQuote() {
-        await fetch('http://localhost:1337/api/quote', {
-            headers: {
-                'x-access-token': localStorage.getItem('token')
-            }
-        }).then(res => res.json())
-            .then(data => {
-                if (data.status == 'ok') {
-                    console.log(data)
-                    setQuote(data.quote)
-                }
-                else {
-                    window.location = '/log-in'
-                }
-            })
 
-    }
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (token) {
@@ -45,7 +29,7 @@ const Dashboard = () => {
                 window.location = '/login'
 
             } else {
-                populateQuote()
+
             }
         }
     }, [])

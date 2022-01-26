@@ -1,59 +1,49 @@
-const express = require('express');
-const app = express();
-const cors = require('cors')
+require('dotenv').config()
+const express = require('express')
 const mongoose = require('mongoose')
-const User = require('./models/user.model')
-const jwt = require('jsonwebtoken')
-app.use(cors())
+const cors = require('cors')
+
+const cookieParser = require('cookie-parser')
+const fileUpload = require('express-fileupload')
+
+
+const app = express()
+
 app.use(express.json())
 
-mongoose.connect('mongodb://localhost:27017/fitapp')
+app.use(cors())
 
-app.post('/api/register', async (req, res) => {
-    console.log(req.body);
-    try {
-        await User.create({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-            password2: req.body.password2
-        })
+app.use(cookieParser())
+app.use(fileUpload({
+    useTempFiles: true
+}))
 
-        res.json({ status: 'ok' })
-    } catch (err) {
-        res.json({ status: 'nok' })
-    }
 
-})
-app.post('/api/login', async (req, res) => {
-    const user = await User.findOne({
-        username: req.body.username,
-        password: req.body.password
-    })
-    if (user) {
-        const token = jwt.sign({
-            username: req.body.username,
 
-        }, 'secret123')
-        return res.json({ status: 'ok', user: token })
-    } else {
-        return res.json({ status: 'nok', user: false })
-    }
-})
-app.get('/api/quote', async (req, res) => {
+// app.use('/', (req, res, next) => {
+//     res.json({ msg: 'Hello' })
+// })
+//Routes
+app.use('/user', require('./routes/userRouter'))
+app.use('/api', require('./routes/uploadAvatar'))
 
-    const token = req.headers['x-access-token'];
-    try {
-        const decoded = jwt.verify(token, 'secret123')
-        const username = decoded.username;
-        const user = await User.findOne({ username: username })
 
-        return res.json({ status: 'ok', quote: user.username })
-    }
-    catch (error) {
-        console.log(error)
-        res.json({ status: 'erorr', error: 'invalid token' })
-    }
+
+
+
+
+//Connect MongoDB
+const URI = process.env.MONGODB_URL
+mongoose.connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}, err => {
+    if (err) throw err;
+    console.log('Connected to mongodb')
 })
 
-app.listen(1337, () => { console.log('server') })
+
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
+    console.log('Server is running on port', PORT)
+})
