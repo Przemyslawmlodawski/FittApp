@@ -4,19 +4,41 @@ import Dropdown from '../Dropdown/Dropdown'
 import notifications from '../../../assets/JsonData/notification.json'
 import { Link } from 'react-router-dom'
 import user_image from '../../../assets/images/tuat.png'
-
+import { useSelector } from 'react-redux'
 import user_menu from '../../../assets/JsonData/user_menus.json'
-import ThemeMenu from '../theme/ThemeMenu'
+import axios from 'axios'
+
+const handleLogout = async () => {
+    try {
+        await axios.get('/user/logout')
+        localStorage.removeItem('firstLogin')
+        window.location.href = '/'
+    } catch (error) {
+        window.location.href = '/'
+        console.log(error)
+    }
+}
+
+const renderUserMenu = (item, index) => {
+    if (item.content === "Logout") {
+        return (<Link to='/' key={index} onClick={handleLogout}>
+            <div className="notification-item">
+                <i className={item.icon}></i>
+                <span>{item.content}</span>
+            </div>
+        </Link>)
+    } else {
+        return (<Link to='/' key={index}>
+            <div className="notification-item">
+                <i className={item.icon}></i>
+                <span>{item.content}</span>
+            </div>
+        </Link>)
+    }
 
 
-const renderUserMenu = (item, index) => (
-    <Link to='/' key={index}>
-        <div className="notification-item">
-            <i className={item.icon}></i>
-            <span>{item.content}</span>
-        </div>
-    </Link>
-)
+
+}
 
 
 
@@ -38,10 +60,15 @@ const renderUserToggle = (user) => (
 )
 
 const Nav = (props) => {
+    const auth = useSelector(state => state.authReducer)
+
+
+    const { user, isLogged } = auth
     const curr_user = {
-        display_name: props.name,
-        image: user_image
+        display_name: user.name,
+        image: user.avatar
     }
+    console.log(user.name)
     return (
         <div className='topnav'>
             <div className='topnav__search'>
@@ -65,9 +92,7 @@ const Nav = (props) => {
                         renderFooter={() => <Link to='/'>View All</Link>}
                     />
                 </div>
-                <div className="topnav__right-item">
-                    <ThemeMenu />
-                </div>
+
             </div>
 
         </div>

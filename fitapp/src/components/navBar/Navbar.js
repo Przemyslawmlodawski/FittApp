@@ -5,7 +5,14 @@ import { NavbarContainer, NavLogo, Nav, MobileIcon, NavItem, NavMenu, NavLinks, 
 import { FaBars } from 'react-icons/fa'
 import { IconContext } from "react-icons/lib";
 import { animateScroll as scroll } from "react-scroll";
+import { useSelector } from "react-redux";
+import { Button } from "../ButtonElements";
+import './nav.css'
 const Navbar = ({ toggle }) => {
+
+
+
+
   const [scrollNav, setScrollNav] = useState(false);
 
   const changeNav = () => {
@@ -21,7 +28,16 @@ const Navbar = ({ toggle }) => {
   const toggleHome = () => {
     scroll.scrollToTop()
   }
+  const auth = useSelector(state => state.authReducer)
+  const { user, isLogged } = auth
+  console.log(auth)
+  const userLink = () => {
+    return <li className="drop-nav">
 
+      <Button to="/dashboard" primary='true' dark="true">Your Dashboard</Button>
+
+    </li>
+  }
 
   return (
     <>
@@ -53,7 +69,14 @@ const Navbar = ({ toggle }) => {
                 <NavLinks to="exercises" smooth={true} duration={500} spy={true} exact='true' offset={-80}>Exercises</NavLinks>
               </NavItem>
               <NavBtn>
-                <NavBtnLink to="/login">Zaloguj się!</NavBtnLink>
+                {
+                  isLogged
+                    ?
+                    userLink()
+                    :
+                    <NavBtnLink to="/login">Zaloguj się!</NavBtnLink>
+
+                }
               </NavBtn>
             </NavMenu>
 

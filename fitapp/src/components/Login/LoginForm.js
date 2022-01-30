@@ -5,7 +5,8 @@ import axios from 'axios'
 import { showErrMsg, showSuccessMsg } from '../utils/notification/Notification'
 import { dispatchLogin } from '../../redux/actions/authAction'
 import { useDispatch } from 'react-redux'
-import Nav from '../navBar/Navbar'
+import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 const initialState = {
     email: '',
     password: '',
@@ -17,7 +18,38 @@ function LoginForm() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { email, password, err, success } = user
+    const responseFacebook = async (response) => {
+        try {
+            const { accessToken, userID } = response
+            const res = await axios.post('/user/facebook_login', { accessToken, userID })
 
+            setUser({ ...user, error: '', success: res.data.msg })
+            localStorage.setItem('firstLogin', true)
+
+            dispatch(dispatchLogin())
+            history.push('/dashboard')
+        } catch (err) {
+            err.response.data.msg &&
+                setUser({ ...user, err: err.response.data.msg, success: '' })
+        }
+    }
+
+
+
+    const responseGoogle = async (response) => {
+        try {
+            const res = await axios.post('/user/google_login', { tokenId: response.tokenId })
+
+            setUser({ ...user, error: '', success: res.data.msg })
+            localStorage.setItem('firstLogin', true)
+
+            dispatch(dispatchLogin())
+            history.push('/dashboard')
+        } catch (err) {
+            err.response.data.msg &&
+                setUser({ ...user, err: err.response.data.msg, success: '' })
+        }
+    }
     const handleChangeInput = (e) => {
         const { name, value } = e.target
 
@@ -32,7 +64,7 @@ function LoginForm() {
 
             localStorage.setItem('firstLogin', true)
             dispatch(dispatchLogin())
-            // history.push('/dashboard')
+            history.push('/dashboard')
         } catch (error) {
             console.log(err)
             error.response.data.message && setUser({ ...user, err: error.response.data.message, success: '' })
@@ -74,7 +106,27 @@ function LoginForm() {
                 <button className="form-input-btn" type="submit">Zaloguj się!</button><br />
                 <Link to="/forgot_password">Zapomniałeś hasła?</Link>
                 <span className="form-input-login">Nie masz jeszcze konta?<Link to="/sign-up"> Zarejestruj się</Link> </span>
+                <div className="hr">
+                    Or Login with
+                </div>
+                <div className="social">
+                    <GoogleLogin
+                        clientId="565255714838-jf44mb1md16ouvh77b3qsqs12ok9aklu.apps.googleusercontent.com"
+                        buttonText="Login with google"
+                        onSuccess={responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
+                    <br />
+                    <FacebookLogin
+                        appId="625593141859499"
+                        autoLoad={false}
+                        fields="name,email,picture"
+                        callback={responseFacebook}
+                    />
+                </div>
             </form>
+
+
         </div >
 
     )

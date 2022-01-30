@@ -3,12 +3,11 @@ import statusCards from '../../assets/JsonData/status-card-data.json'
 import StatusCard from './cards/StatusCard'
 import '../../assets/css/index.css'
 import Chart from 'react-apexcharts'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Table from './Table/Table'
 import Badge from './Badge/Badge'
-import ThemeAction from '../../redux/actions/ThemeAction'
-import ThemeReducer from '../../redux/reducers/ThemeReducer'
+
 const chartOptions = {
     series: [{
         name: 'Online Cutomers',
@@ -155,7 +154,7 @@ const renderOrderBody = (item, index) => (
 )
 const dashboardContent = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const themeReducer = useSelector(state => state.ThemeReducer.mode)
+
     // const dispatch = useDispatch();
     // useEffect(() => {
     //     dispatch(ThemeAction.getTheme())
@@ -185,13 +184,7 @@ const dashboardContent = () => {
                 <div className="col-6">
                     <div className="card full-height">
                         <Chart
-                            options={themeReducer === 'theme-mode-dark' ? {
-                                ...chartOptions.options,
-                                theme: { mode: 'dark' }
-                            } : {
-                                ...chartOptions.options,
-                                theme: { mode: 'light' }
-                            }}
+                            options={chartOptions.options}
                             series={chartOptions.series}
                             type='line'
                             height='100%'

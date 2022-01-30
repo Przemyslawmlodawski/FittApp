@@ -10,9 +10,9 @@
         "icon": "bx bx-user-pin"
     },
     {
-        "display_name": "Products",
-        "route": "/products",
-        "icon": "bx bx-package"
+        "display_name": "Profile",
+        "route": "/profile",
+        "icon": "bx bxs-id-card"
     },
     {
         "display_name": "Orders",

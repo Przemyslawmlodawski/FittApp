@@ -1,19 +1,18 @@
-import React from 'react';
+import React from 'react'
 import { createStore } from 'redux'
-import rootReducer from './reducers';
-import { Provider } from 'react-redux';
-
-
+import rootReducer from './reducers/'
+import { Provider } from 'react-redux'
 
 const store = createStore(rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-const DataProvider = ({ children }) => {
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
+
+function DataProvider({ children }) {
     return (
         <Provider store={store}>
             {children}
-
-        </Provider >
+        </Provider>
     )
-};
+}
 
-export default DataProvider;
+export default DataProvider

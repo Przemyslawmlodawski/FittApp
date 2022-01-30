@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "https://res.cloudinary.com/dhmopvnqn/image/upload/v1642001106/avatar/user_qjklun.png"
     },
+    visits: {
+        type: Number,
+        default: 0
+    },
 }, {
     timestamps: true
 })
