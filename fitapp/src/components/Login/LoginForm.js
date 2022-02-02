@@ -104,9 +104,9 @@ function LoginForm() {
 
                 </div>
                 <button className="form-input-btn" type="submit">Zaloguj się!</button><br />
-                <Link to="/forgot_password">Zapomniałeś hasła?</Link>
+                <Link className='form-input-login' to="/forgot_password">Zapomniałeś hasła?</Link>
                 <span className="form-input-login">Nie masz jeszcze konta?<Link to="/sign-up"> Zarejestruj się</Link> </span>
-                <div className="hr">
+                <div className="form-input-login">
                     Or Login with
                 </div>
                 <div className="social">
@@ -115,6 +115,7 @@ function LoginForm() {
                         buttonText="Login with google"
                         onSuccess={responseGoogle}
                         cookiePolicy={'single_host_origin'}
+                        className='form-input-btn'
                     />
                     <br />
                     <FacebookLogin
@@ -122,6 +123,7 @@ function LoginForm() {
                         autoLoad={false}
                         fields="name,email,picture"
                         callback={responseFacebook}
+                        cssClass='form-input-btn'
                     />
                 </div>
             </form>

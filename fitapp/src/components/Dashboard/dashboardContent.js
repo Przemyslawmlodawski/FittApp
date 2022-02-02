@@ -3,11 +3,11 @@ import statusCards from '../../assets/JsonData/status-card-data.json'
 import StatusCard from './cards/StatusCard'
 import '../../assets/css/index.css'
 import Chart from 'react-apexcharts'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Table from './Table/Table'
 import Badge from './Badge/Badge'
-
+import { fetchExercises, dispatchGetExercises } from '../../redux/actions/exerciseAction'
 const chartOptions = {
     series: [{
         name: 'Online Cutomers',
@@ -90,75 +90,47 @@ const renderUsersBody = (item, index) => (
 )
 const latestOrders = {
     header: [
-        "order id",
-        "user",
-        "total price",
-        "date",
+        "Exercise Name",
+        "Reps",
+        "Category",
         "status"
     ],
-    body: [
-        {
-            id: "#OD1711",
-            user: "john doe",
-            date: "17 Jun 2021",
-            price: "$900",
-            status: "shipping"
-        },
-        {
-            id: "#OD1712",
-            user: "frank iva",
-            date: "1 Jun 2021",
-            price: "$400",
-            status: "paid"
-        },
-        {
-            id: "#OD1713",
-            user: "anthony baker",
-            date: "27 Jun 2021",
-            price: "$200",
-            status: "pending"
-        },
-        {
-            id: "#OD1712",
-            user: "frank iva",
-            date: "1 Jun 2021",
-            price: "$400",
-            status: "paid"
-        },
-        {
-            id: "#OD1713",
-            user: "anthony baker",
-            date: "27 Jun 2021",
-            price: "$200",
-            status: "refund"
-        }
-    ]
+
 }
 const orderStatus = {
-    "shipping": "primary",
-    "pending": "warning",
-    "paid": "success",
-    "refund": "danger"
+
+    "medium": "warning",
+    "easy": "success",
+    "hard": "danger"
 }
 const renderOrderHead = (item, index) => (
     <th key={index}>{item}</th>
 )
-const renderOrderBody = (item, index) => (
-    <tr key={index}>
-        <td>{item.id}</td>
-        <td>{item.user}</td>
-        <td>{item.date}</td>
-        <td>{item.price}</td>
-        <td><Badge type={orderStatus[item.status]} content={item.status} /></td>
-    </tr>
-)
-const dashboardContent = () => {
+
+const DashboardContent = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
 
     // const dispatch = useDispatch();
     // useEffect(() => {
     //     dispatch(ThemeAction.getTheme())
     // })
+    const exercises = useSelector(state => state.exercisesReducer)
+    console.log(exercises)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        return fetchExercises().then(res => {
+            dispatch(dispatchGetExercises(res))
+        })
+    }, [dispatch])
+    const renderOrderBody = (item, index) => (
+        <tr key={index}>
+            <td>{item.name}</td>
+            <td>{item.reps}</td>
+            <td>{item.category}</td>
+            <td><Badge type={orderStatus[item.status]} content={item.status} /></td>
+        </tr>
+    )
+    const numberOfExercises = exercises.length
     return (
         <div>
             <h2 className="page-header">
@@ -167,18 +139,18 @@ const dashboardContent = () => {
             <div className="row">
                 <div className="col-6">
                     <div className="row">
-                        {
-                            statusCards.map((item, index) => (
-                                <div className="col-6" key={index}>
-                                    {item.title}
-                                    <StatusCard
-                                        icon={item.icon}
-                                        count={item.count}
-                                        title={item.title}
-                                    />
-                                </div>
-                            ))
-                        }
+
+
+                        <div className="col-6" >
+
+                            <StatusCard
+                                icon='fas fa-dumbbell'
+                                count={numberOfExercises}
+                                title="Exercises"
+                            />
+
+                        </div>
+
                     </div>
                 </div>
                 <div className="col-6">
@@ -191,36 +163,19 @@ const dashboardContent = () => {
                         />
                     </div>
                 </div>
-                <div className="col-4">
-                    <div className="card">
-                        <div className="card__header">
-                            <h3>Top Customers</h3>
-                        </div>
-                        <div className="card__body">
-                            <Table
-                                headData={topUsers.head}
-                                renderHead={(item, index) => renderUsersHead(item, index)}
-                                bodyData={topUsers.body}
-                                renderBody={(item, index) => renderUsersBody(item, index)}
 
-                            />
-                        </div>
-                        <div className="card__footer">
-                            <Link to='/dashboard/'>View All</Link>
-                        </div>
-                    </div>
-                </div>
                 <div className="col-8">
                     <div className="card">
                         <div className="card-header">
-                            <h3>latest orders</h3>
+                            <h3>Top Exercises</h3>
                         </div>
                         <div className="card__body">
                             <Table
-                                headData={latestOrders.head}
+                                headData={latestOrders.header}
                                 renderHead={(item, index) => renderOrderHead(item, index)}
-                                bodyData={latestOrders.body}
+                                bodyData={exercises}
                                 renderBody={(item, index) => renderOrderBody(item, index)}
+                                limit={3}
 
                             />
                         </div>
@@ -234,4 +189,4 @@ const dashboardContent = () => {
     )
 }
 
-export default dashboardContent
+export default DashboardContent

@@ -72,8 +72,7 @@ const Nav = (props) => {
     return (
         <div className='topnav'>
             <div className='topnav__search'>
-                <input type="text" placeholder='Wyszukaj' />
-                <i className='bx bx-search'></i>
+
             </div>
             <div className='topnav__right'>
                 <div className="topnav__right-item">

@@ -26,6 +26,7 @@ app.use(fileUpload({
 //Routes
 app.use('/user', require('./routes/userRouter'))
 app.use('/api', require('./routes/uploadAvatar'))
+app.use('/exercise', require('./routes/exerciseRouter'))
 
 
 

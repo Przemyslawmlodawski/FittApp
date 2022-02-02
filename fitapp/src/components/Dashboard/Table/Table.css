@@ -6,6 +6,8 @@ table{
     width: 100%;
     min-width: 400px;
     border-spacing: 0;
+    font-size: 15px;
+    justify-content: center;
 }
 
 thead{

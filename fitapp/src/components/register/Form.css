@@ -132,6 +132,7 @@ body{
     border: none;
     color: #fff;
     font-size: 1rem;
+    text-align: center;
   }
   
   .form-input-btn:hover {
@@ -157,7 +158,18 @@ body{
     color: #27cdff;
     font-weight: 600;
   }
-  
+  .signInButton {
+    float:none;
+    position:static;
+    display:block;
+    margin:auto;
+    width:max-content;
+  }
+  .social{
+    width:100%;
+    text-align:center;
+  }
+ 
   @media screen and (max-width: 600px) {
     .form-container, input[type=submit] {
       width: 100%;

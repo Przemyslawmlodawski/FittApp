@@ -25,7 +25,7 @@ const Sidebar = (props) => {
     return (
         <div className='sidebar'>
             <div className='sidebar__logo'>
-                <img src={logo} alt="AppLogo" />
+                <h1>FittApp</h1>
             </div>
             {
                 sidebar_items.map((item, index) => (
