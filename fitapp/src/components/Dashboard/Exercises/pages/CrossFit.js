@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import StatusCard from '../../cards/StatusCard';
 import Popup from '../Popup/Popup';
-const OutsideWorkout = () => {
+const CrossFit = () => {
     const initialState = {
         name: '',
         reps: '',
@@ -13,13 +13,13 @@ const OutsideWorkout = () => {
 
     const [buttonPopup, setButtonPopup] = useState(false)
     const [popup, setPopup] = useState(initialState)
-    const OutsideWorkout = []
+    const CrossFit = []
     const exercises = useSelector(state => state.exercisesReducer)
     exercises.map((item, index) => {
-        if (item.category == "Outside Workout") OutsideWorkout.push(item)
+        if (item.category == "CrossFit") CrossFit.push(item)
     })
 
-    const initDataShow = OutsideWorkout && OutsideWorkout ? OutsideWorkout.slice(0, Number(4)) : OutsideWorkout
+    const initDataShow = CrossFit && CrossFit ? CrossFit.slice(0, Number(4)) : CrossFit
     const [dataShow, setDataShow] = useState(initDataShow)
     console.log(exercises)
 
@@ -34,15 +34,15 @@ const OutsideWorkout = () => {
     let range = [];
 
     if (4 !== undefined) {
-        let page = Math.floor(OutsideWorkout.length / Number(4))
-        pages = OutsideWorkout.length % Number(4) === 0 ? page : page + 1
+        let page = Math.floor(CrossFit.length / Number(4))
+        pages = CrossFit.length % Number(4) === 0 ? page : page + 1
         range = [...Array(pages).keys()]
     }
     const selectPage = page => {
         const start = Number(4) * page
         const end = start + Number(4)
 
-        setDataShow(OutsideWorkout.slice(start, end))
+        setDataShow(CrossFit.slice(start, end))
 
         console.log(dataShow)
         setCurrPage(page)
@@ -54,13 +54,14 @@ const OutsideWorkout = () => {
                     dataShow.map((item, index) => {
 
 
-                        if (item.category === "Outside Workout") {
+                        if (item.category === "Home Workout") {
                             return <div onClick={() => handlePopup(item)}>
                                 <StatusCard
                                     icon='fas fa-dumbbell'
                                     title={item.category}
                                     count={item.name}
                                     status={item.status}
+
 
                                 />
 
@@ -93,7 +94,10 @@ const OutsideWorkout = () => {
                 }
             </div>
         </>
+
+
+
     );
 };
 
-export default OutsideWorkout;
+export default CrossFit;

@@ -5,7 +5,7 @@ import { fetchExercises, dispatchGetExercises } from '../../../../redux/actions/
 import '../../../../assets/css/index.css'
 import Popup from '../Popup/Popup';
 import { useState } from 'react';
-import { ID } from '../../WorkoutDiary/helpers/id';
+
 const HomeWorkout = () => {
     const initialState = {
         name: '',
@@ -14,9 +14,17 @@ const HomeWorkout = () => {
         avatar: '',
         status: '',
     }
+
     const [buttonPopup, setButtonPopup] = useState(false)
     const [popup, setPopup] = useState(initialState)
+    const homeworkout = []
     const exercises = useSelector(state => state.exercisesReducer)
+    exercises.map((item, index) => {
+        if (item.category == "Home Workout") homeworkout.push(item)
+    })
+
+    const initDataShow = homeworkout && homeworkout ? homeworkout.slice(0, Number(4)) : homeworkout
+    const [dataShow, setDataShow] = useState(initDataShow)
     console.log(exercises)
     const dispatch = useDispatch();
     useEffect(() => {
@@ -30,21 +38,43 @@ const HomeWorkout = () => {
         setPopup({ name: item.name, reps: item.reps, description: item.description, avatar: item.avatar, status: item.status })
     }
 
+    const [currPage, setCurrPage] = useState(0);
+    let pages = 1;
+    let range = [];
+
+    if (4 !== undefined) {
+        let page = Math.floor(homeworkout.length / Number(4))
+        pages = homeworkout.length % Number(4) === 0 ? page : page + 1
+        range = [...Array(pages).keys()]
+    }
+    const selectPage = page => {
+        const start = Number(4) * page
+        const end = start + Number(4)
+
+        setDataShow(homeworkout.slice(start, end))
+
+        console.log(dataShow)
+        setCurrPage(page)
+    }
+
     return (
         <>
             <div>
                 {
-                    exercises.map((item, index) => {
+                    dataShow.map((item, index) => {
 
 
                         if (item.category === "Home Workout") {
                             return <div onClick={() => handlePopup(item)}>
                                 <StatusCard
                                     icon='fas fa-dumbbell'
-                                    title={item.name}
-                                    count={item.reps}
+                                    title={item.category}
+                                    count={item.name}
+                                    status={item.status}
+
 
                                 />
+
                             </div >
                         }
 
@@ -54,7 +84,7 @@ const HomeWorkout = () => {
 
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup} >
                 <h1>{popup.name}</h1>
-                <img width={600} height={500} src={popup.avatar} alt="" />
+                <img width={600} height={600} src={popup.avatar} alt="" />
                 <h3>Jak Wykonac</h3>
                 <article>{popup.description}</article>
                 <h3>Ilość powtórzeń</h3>
@@ -63,6 +93,16 @@ const HomeWorkout = () => {
                 <h4>{popup.status}</h4>
             </Popup >
 
+
+            <div className="table__pagination">
+                {
+                    range.map((item, index) => (
+                        <div key={index} className={`table__pagination-item ${currPage === index ? 'active' : ''}`} onClick={() => selectPage(index)}>
+                            {item + 1}
+                        </div>
+                    ))
+                }
+            </div>
         </>
 
 

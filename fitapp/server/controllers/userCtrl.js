@@ -297,6 +297,19 @@ const userCtrl = {
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }
+    },
+    updateWater: async (req, res) => {
+        try {
+
+            const { visits } = req.body
+            await Users.findOneAndUpdate({ _id: req.user.id }, {
+                visits
+            })
+
+            res.json({ msg: "Update Success" })
+        } catch (error) {
+            return res.status(500).json({ message: error.message })
+        }
     }
 
 }

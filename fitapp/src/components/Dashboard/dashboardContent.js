@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import statusCards from '../../assets/JsonData/status-card-data.json'
 import StatusCard from './cards/StatusCard'
 import '../../assets/css/index.css'
@@ -8,38 +8,7 @@ import { Link } from 'react-router-dom'
 import Table from './Table/Table'
 import Badge from './Badge/Badge'
 import { fetchExercises, dispatchGetExercises } from '../../redux/actions/exerciseAction'
-const chartOptions = {
-    series: [{
-        name: 'Online Cutomers',
-        data: [40, 70, 20, 90, 36, 80, 30, 91, 60]
-    },
-    {
-        name: 'Store Customers',
-        data: [40, 30, 70, 80, 40, 16, 40, 20, 51, 10]
-    }
-    ],
-    options: {
-        color: ['#6ab04c', '#2980b9'],
-        chart: {
-            background: 'transparent'
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth'
-        },
-        xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
-        },
-        legend: {
-            position: 'top'
-        },
-        grid: {
-            show: false
-        }
-    }
-}
+import { FaLaughBeam } from 'react-icons/fa'
 
 const topUsers = {
     head: [
@@ -99,9 +68,9 @@ const latestOrders = {
 }
 const orderStatus = {
 
-    "medium": "warning",
-    "easy": "success",
-    "hard": "danger"
+    "Średni": "warning",
+    "Łatwy": "success",
+    "Trudny": "danger"
 }
 const renderOrderHead = (item, index) => (
     <th key={index}>{item}</th>
@@ -114,14 +83,37 @@ const DashboardContent = () => {
     // useEffect(() => {
     //     dispatch(ThemeAction.getTheme())
     // })
+    const categories = []
     const exercises = useSelector(state => state.exercisesReducer)
+    const auth = useSelector(state => state.authReducer)
+    exercises.map((item, index) => categories.push(item.category))
+
+    const numberOfCategories = categories.filter((item, index, array) => array.indexOf(item) === index)
+    console.log(categories)
+    console.log(numberOfCategories.length)
+    const { user } = auth
+    const [chartUserData, setChartUserData] = useState()
+    const [chartExerciseData, setCharExerciseData] = useState()
+    const [chartCategoriesData, setCharCategoriesData] = useState()
     console.log(exercises)
     const dispatch = useDispatch();
     useEffect(() => {
+        setCharCategoriesData(numberOfCategories.length)
+        setChartUserData(user.visits)
+        setCharExerciseData(numberOfExercises)
         return fetchExercises().then(res => {
             dispatch(dispatchGetExercises(res))
         })
     }, [dispatch])
+    const chartOptions = {
+
+        labels: ["Drunk Water", "Number of Exercise", "Categories"]
+
+
+    }
+
+    const series = [chartUserData, chartExerciseData, chartCategoriesData]
+
     const renderOrderBody = (item, index) => (
         <tr key={index}>
             <td>{item.name}</td>
@@ -142,12 +134,35 @@ const DashboardContent = () => {
 
 
                         <div className="col-6" >
+                            <Link to='/exercises'>
+                                <StatusCard
+                                    icon='fas fa-dumbbell'
+                                    count={chartExerciseData}
+                                    title="Exercises"
+                                />
+                            </Link>
+
+                        </div>
+                        <div className="col-6" >
+                            <Link to='/water'>
+                                <StatusCard
+                                    icon="fas fa-glass-whiskey"
+                                    count={user.visits}
+                                    title="Cup Of Water"
+                                />
+
+                            </Link>
+
+                        </div>
+                        <div className="col-6" >
 
                             <StatusCard
-                                icon='fas fa-dumbbell'
-                                count={numberOfExercises}
-                                title="Exercises"
+                                icon="bx bxs-category"
+                                count={chartCategoriesData}
+                                title="Categories"
                             />
+
+
 
                         </div>
 
@@ -156,10 +171,11 @@ const DashboardContent = () => {
                 <div className="col-6">
                     <div className="card full-height">
                         <Chart
-                            options={chartOptions.options}
-                            series={chartOptions.series}
-                            type='line'
-                            height='100%'
+                            options={chartOptions}
+                            series={series}
+                            type="pie"
+                            width='100%'
+                            height={300}
                         />
                     </div>
                 </div>
@@ -180,7 +196,7 @@ const DashboardContent = () => {
                             />
                         </div>
                         <div className="card__footer">
-                            <Link to='/dashboard/'>View All</Link>
+                            <Link to='/exercises'>View All</Link>
                         </div>
                     </div>
                 </div>

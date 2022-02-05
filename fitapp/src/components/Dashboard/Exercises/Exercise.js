@@ -12,7 +12,7 @@ const Exercise = () => {
             <Router>
                 <Navbar />
                 <Switch>
-                    <Route path='/' exact component={HomeWorkout}></Route>
+                    <Route path='/homeWorkout' exact component={HomeWorkout}></Route>
                     <Route path='/outside' component={OutsideWorkout}></Route>
                 </Switch>
             </Router>

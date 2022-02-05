@@ -12,14 +12,14 @@ const Navbar = () => {
     const showSidebar = () => setSidebar(!sidebar)
     return (
         <Nav>
-            <NavLink to='/'><i class="fas fa-dumbbell"></i></NavLink>
+            <NavLink to='/exercises'><i class="fas fa-dumbbell"></i></NavLink>
             <Bars />
             <NavMenu>
-                <NavLink to="/home" activeStyle> Home Workout</NavLink>
-                <NavLink to="/outside" activeStyle> Home Workout</NavLink>
-                <NavLink to="/ss" activeStyle> Home Workout</NavLink>
-                <NavLink to="/aaa" activeStyle> Home Workout</NavLink>
-                <NavLink to="/sss" activeStyle> Home Workout</NavLink>
+                <NavLink to="/homeWorkout" activeStyle> Home Workout</NavLink>
+                <NavLink to="/outside" activeStyle> Outside Workout</NavLink>
+                <NavLink to="/ss" activeStyle> Gym Workout</NavLink>
+                <NavLink to="/aaa" activeStyle> CrossFit</NavLink>
+
             </NavMenu>
         </Nav>
 

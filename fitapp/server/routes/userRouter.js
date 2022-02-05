@@ -14,6 +14,7 @@ router.get('/infor', auth, userCtrl.getUserInfor)
 router.get('/all_infor', auth, authAdmin, userCtrl.getUsersInforAll)
 router.get('/logout', userCtrl.logout)
 router.patch('/update', auth, userCtrl.upadteUser)
+router.patch('/updateWater', auth, userCtrl.updateWater)
 router.patch('/update_all/:id', auth, authAdmin, userCtrl.updateUsersRole)
 router.delete('/delete/:id', auth, authAdmin, userCtrl.deleteUser)
 

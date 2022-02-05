@@ -56,6 +56,7 @@ function LoginForm() {
         setUser({ ...user, [name]: value, err: '', success: '' })
 
     }
+
     const handleSubmit = async e => {
         e.preventDefault();
         try {
