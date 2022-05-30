@@ -1,9 +1,7 @@
 import React from 'react'
 import './Nav.css'
 import Dropdown from '../Dropdown/Dropdown'
-import notifications from '../../../assets/JsonData/notification.json'
 import { Link } from 'react-router-dom'
-import user_image from '../../../assets/images/tuat.png'
 import { useSelector } from 'react-redux'
 import user_menu from '../../../assets/JsonData/user_menus.json'
 import axios from 'axios'
@@ -20,7 +18,7 @@ const handleLogout = async () => {
 }
 
 const renderUserMenu = (item, index) => {
-    if (item.content === "Logout") {
+    if (item.content === "Wyloguj się") {
         return (<Link to='/' key={index} onClick={handleLogout}>
             <div className="notification-item">
                 <i className={item.icon}></i>
@@ -42,12 +40,7 @@ const renderUserMenu = (item, index) => {
 
 
 
-const renderNotificationItem = (item, index) => (
-    <div className="notification-item" key={index}>
-        <i className={item.icon}></i>
-        <span>{item.content}</span>
-    </div>
-)
+
 const renderUserToggle = (user) => (
     <div className="topnav__right-user">
         <div className="topnav__right-user__image">
@@ -82,15 +75,7 @@ const Nav = (props) => {
                         renderItems={(item, index) => renderUserMenu(item, index)}
                     />
                 </div>
-                <div className="topnav__right-item">
-                    <Dropdown
-                        icon='bx bx-bell'
-                        badge='12'
-                        contentData={notifications}
-                        renderItems={(item, index) => renderNotificationItem(item, index)}
-                        renderFooter={() => <Link to='/'>View All</Link>}
-                    />
-                </div>
+
 
             </div>
 

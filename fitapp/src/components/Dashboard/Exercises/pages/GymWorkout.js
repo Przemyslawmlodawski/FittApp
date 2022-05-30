@@ -54,11 +54,10 @@ const GymWorkout = () => {
                     dataShow.map((item, index) => {
 
 
-                        if (item.category === "Home Workout") {
+                        if (item.category === "Gym Workout") {
                             return <div onClick={() => handlePopup(item)}>
                                 <StatusCard
                                     icon='fas fa-dumbbell'
-                                    title={item.category}
                                     count={item.name}
                                     status={item.status}
 
@@ -74,7 +73,7 @@ const GymWorkout = () => {
 
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup} >
                 <h1>{popup.name}</h1>
-                <img width={600} height={600} src={popup.avatar} alt="" />
+                <img width={500} height={500} src={popup.avatar} alt="" />
                 <h3>Jak Wykonac</h3>
                 <article>{popup.description}</article>
                 <h3>Ilość powtórzeń</h3>

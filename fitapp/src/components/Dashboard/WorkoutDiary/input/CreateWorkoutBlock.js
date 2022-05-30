@@ -17,10 +17,10 @@ const CreateWorkoutBlock = ({ onCreateWorkout }) => {
     return (
 
         <form onSubmit={onSubmitHandler} className="createWorkout-block">
-            <input type="text" placeholder="Name" name="name" />
-            <input type="number" placeholder="Reps" name="reps" />
-            <input type="date" name="date" />
-            <button className="saveButton">Save</button>
+            <input type="text" placeholder="Nazwa" name="name" />
+            <input type="number" placeholder="Pówtórzenia" name="reps" />
+            <input type="date" name="date" placeholder='Wybierz Date' />
+            <button className="saveButton">Dodaj</button>
         </form>
 
     );

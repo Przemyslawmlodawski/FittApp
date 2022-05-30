@@ -9,7 +9,7 @@ const WorkoutItem = ({ name, reps, id, date, onDelete, progress }) => {
                     className={`workout-item__count ${progress ? (progress > 0 && "up") || "down" : ""
                         }`}
                 >
-                    {reps} reps
+                    {reps} pow
                     {progress ? (progress > 0 && ` ${progress}%↑`) || ` ${progress}%↓` : ""}
                 </span>
 

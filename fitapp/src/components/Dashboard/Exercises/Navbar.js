@@ -15,10 +15,10 @@ const Navbar = () => {
             <NavLink to='/exercises'><i class="fas fa-dumbbell"></i></NavLink>
             <Bars />
             <NavMenu>
-                <NavLink to="/homeWorkout" activeStyle> Home Workout</NavLink>
-                <NavLink to="/outside" activeStyle> Outside Workout</NavLink>
-                <NavLink to="/ss" activeStyle> Gym Workout</NavLink>
-                <NavLink to="/aaa" activeStyle> CrossFit</NavLink>
+                <NavLink to="/homeWorkout" activeStyle> Ćwiczenia domowe </NavLink>
+                <NavLink to="/outside" activeStyle> Na zewnątrz</NavLink>
+                <NavLink to="/gym" activeStyle> Siłownia</NavLink>
+                <NavLink to="/crossfit" activeStyle> CrossFit</NavLink>
 
             </NavMenu>
         </Nav>

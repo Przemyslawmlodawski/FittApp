@@ -35,7 +35,7 @@ const Water = () => {
             <div className="hilt">
                 <div className="handle"></div>
             </div>
-            <Button2 onClick={handleWater} primary='true' dark='true'>Have A drink</Button2>
+            <Button2 onClick={handleWater} primary='true' dark='true'>Napij się</Button2>
         </div>
 
 

@@ -20,7 +20,7 @@ const DataSection = ({ lightBg, id, imgStart, topLine, lightText, headline, dark
                                     {description}
                                 </Subtitle>
                                 <BtnWrap>
-                                    <Button to="/"
+                                    <Button to="/sign-up"
                                         smooth={true}
                                         duration={500}
                                         spy={true}

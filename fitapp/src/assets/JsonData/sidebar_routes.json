@@ -1,47 +1,27 @@
 [
     {
-        "display_name": "Dashboard",
+        "display_name": "Tablica Nawigacyjna",
         "route": "/dashboard",
         "icon": "bx bx-category-alt"
     },
     {
-        "display_name": "Exercises",
+        "display_name": "Ćwiczenia",
         "route": "/exercises",
         "icon": "bx bx-user-pin"
     },
     {
-        "display_name": "Profile",
+        "display_name": "Twój Profil",
         "route": "/profile",
         "icon": "bx bxs-id-card"
     },
     {
-        "display_name": "Workout Diary",
+        "display_name": "Dziennik Ćwiczeń",
         "route": "/workoutdiary",
         "icon": "bx bx-cart"
     },
     {
-        "display_name": "Water Reminder",
+        "display_name": "Wypij wode",
         "route": "/water",
         "icon": "bx bx-bar-chart-alt"
-    },
-    {
-        "display_name": "Categories",
-        "route": "/categories",
-        "icon": "bx bx-list-ol"
-    },
-    {
-        "display_name": "Discount",
-        "route": "/discount",
-        "icon": "bx bx-gift"
-    },
-    {
-        "display_name": "Inventory",
-        "route": "/inventory",
-        "icon": "bx bx-store-alt"
-    },
-    {
-        "display_name": "Settings",
-        "route": "/settings",
-        "icon": "bx bx-cog"
     }
 ]

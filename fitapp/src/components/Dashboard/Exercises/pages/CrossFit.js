@@ -54,11 +54,10 @@ const CrossFit = () => {
                     dataShow.map((item, index) => {
 
 
-                        if (item.category === "Home Workout") {
+                        if (item.category === "CrossFit") {
                             return <div onClick={() => handlePopup(item)}>
                                 <StatusCard
                                     icon='fas fa-dumbbell'
-                                    title={item.category}
                                     count={item.name}
                                     status={item.status}
 

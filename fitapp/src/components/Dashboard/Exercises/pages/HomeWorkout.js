@@ -68,7 +68,6 @@ const HomeWorkout = () => {
                             return <div onClick={() => handlePopup(item)}>
                                 <StatusCard
                                     icon='fas fa-dumbbell'
-                                    title={item.category}
                                     count={item.name}
                                     status={item.status}
 

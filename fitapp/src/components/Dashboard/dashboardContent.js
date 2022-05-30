@@ -10,40 +10,7 @@ import Badge from './Badge/Badge'
 import { fetchExercises, dispatchGetExercises } from '../../redux/actions/exerciseAction'
 import { FaLaughBeam } from 'react-icons/fa'
 
-const topUsers = {
-    head: [
-        'user',
-        'total orders',
-        'total spending'
-    ],
-    body: [
-        {
-            "username": "john doe",
-            "order": "490",
-            "price": "$15,870"
-        },
-        {
-            "username": "frank iva",
-            "order": "250",
-            "price": "$12,251"
-        },
-        {
-            "username": "anthony baker",
-            "order": "120",
-            "price": "$10,840"
-        },
-        {
-            "username": "frank iva",
-            "order": "110",
-            "price": "$9,251"
-        },
-        {
-            "username": "anthony baker",
-            "order": "80",
-            "price": "$8,840"
-        }
-    ]
-}
+
 
 const renderUsersHead = (item, index) => (
     <th key={index}>{item}</th>
@@ -59,10 +26,10 @@ const renderUsersBody = (item, index) => (
 )
 const latestOrders = {
     header: [
-        "Exercise Name",
-        "Reps",
-        "Category",
-        "status"
+        "Nazwa",
+        "Powtórzenia",
+        "Kategoria",
+        "Poziom Trudności"
     ],
 
 }
@@ -107,7 +74,7 @@ const DashboardContent = () => {
     }, [dispatch])
     const chartOptions = {
 
-        labels: ["Drunk Water", "Number of Exercise", "Categories"]
+        labels: ["Spożycie wody", "Liczba Ćwiczeń", "Kategorie"]
 
 
     }
@@ -122,11 +89,20 @@ const DashboardContent = () => {
             <td><Badge type={orderStatus[item.status]} content={item.status} /></td>
         </tr>
     )
+    const renderChart = () => (
+        <Chart
+            options={chartOptions}
+            series={series}
+            type='pie'
+            width='100%'
+            height={300}
+        />
+    )
     const numberOfExercises = exercises.length
     return (
         <div>
             <h2 className="page-header">
-                Dashboard
+                Tablica Nawigacyjna
             </h2>
             <div className="row">
                 <div className="col-6">
@@ -138,7 +114,7 @@ const DashboardContent = () => {
                                 <StatusCard
                                     icon='fas fa-dumbbell'
                                     count={chartExerciseData}
-                                    title="Exercises"
+                                    title="Ćwiczenia"
                                 />
                             </Link>
 
@@ -148,7 +124,7 @@ const DashboardContent = () => {
                                 <StatusCard
                                     icon="fas fa-glass-whiskey"
                                     count={user.visits}
-                                    title="Cup Of Water"
+                                    title="Spożycie wody"
                                 />
 
                             </Link>
@@ -159,7 +135,7 @@ const DashboardContent = () => {
                             <StatusCard
                                 icon="bx bxs-category"
                                 count={chartCategoriesData}
-                                title="Categories"
+                                title="Kategorie"
                             />
 
 
@@ -170,20 +146,15 @@ const DashboardContent = () => {
                 </div>
                 <div className="col-6">
                     <div className="card full-height">
-                        <Chart
-                            options={chartOptions}
-                            series={series}
-                            type="pie"
-                            width='100%'
-                            height={300}
-                        />
+                        {chartUserData ? renderChart() : null}
+
                     </div>
                 </div>
 
                 <div className="col-8">
                     <div className="card">
                         <div className="card-header">
-                            <h3>Top Exercises</h3>
+                            <h3>Najpopularniejsze ćwiczenia</h3>
                         </div>
                         <div className="card__body">
                             <Table
@@ -196,7 +167,7 @@ const DashboardContent = () => {
                             />
                         </div>
                         <div className="card__footer">
-                            <Link to='/exercises'>View All</Link>
+                            <Link to='/exercises'>Zobacz wszystkie</Link>
                         </div>
                     </div>
                 </div>

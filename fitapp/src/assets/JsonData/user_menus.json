@@ -1,7 +1,7 @@
 [
     {
         "icon": "bx bx-log-out-circle bx-rotate-180",
-        "content": "Logout",
+        "content": "Wyloguj się",
         "path": "/logout"
     }
 ]

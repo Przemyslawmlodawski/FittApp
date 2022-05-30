@@ -130,7 +130,7 @@ function Profile() {
             </div>
             <div className="profile_page">
                 <div className="col-left">
-                    <h2>{isAdmin ? "Admin Profile" : "User Profile"}</h2>
+                    <h2>{isAdmin ? "Admin Profile" : "Profil użytkownika"}</h2>
 
                     <div className="avatar">
                         <img src={avatar ? avatar : user.avatar} alt="" />
@@ -142,32 +142,32 @@ function Profile() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Nazwa użytkownika</label>
                         <input type="text" name="name" id="name" defaultValue={user.name}
                             placeholder="Your name" onChange={handleChange} />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">Adres email</label>
                         <input type="email" name="email" id="email" defaultValue={user.email}
                             placeholder="Your email address" disabled />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="password">New Password</label>
+                        <label htmlFor="password">Nowe hasło</label>
                         <input type="password" name="password" id="password"
                             placeholder="Your password" value={password} onChange={handleChange} />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="cf_password">Confirm New Password</label>
+                        <label htmlFor="cf_password">Potwierdź nowe hasło</label>
                         <input type="password" name="cf_password" id="cf_password"
                             placeholder="Confirm password" value={cf_password} onChange={handleChange} />
                     </div>
 
 
 
-                    <button disabled={loading} onClick={handleUpdate}>Update</button>
+                    <button disabled={loading} onClick={handleUpdate}>Zaktualizuj</button>
                 </div>
 
 

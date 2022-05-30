@@ -4,11 +4,8 @@ import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router
 import Home from "./components/pages/Home";
 import Form from "./components/register/Form";
 import Login from './components/Login/Login'
-import { SidebarContainer } from "./components/Sidebar/SidebarElement";
-import Sidebar from './components/Sidebar/Sidebar'
 import LoginSuccess from "./components/Login/LoginSuccess";
 import Dashboard from './components/Dashboard/Dashboard'
-import Customers from "./components/Dashboard/Customers";
 import ActivationEmail from "./components/Dashboard/auth/ActivationEmail";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -58,7 +55,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact component={Home}></Route>
-          <Route path="/sign-up" exact component={isLogged ? NotFound : Form}></Route>
+          <Route path="/sign-up" exact component={Form}></Route>
           <Route path="/forgot_password" exact component={isLogged ? NotFound : ForgetPassword}></Route>
           <Route path="/user/reset/:token" exact component={isLogged ? NotFound : ResetPassword}></Route>
           <Route path="/login" exact component={isLogged ? NotFound : Login}></Route>

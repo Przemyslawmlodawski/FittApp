@@ -8,29 +8,6 @@ const Footer = () => {
                 <FooterWrap>
                     <FooterLinksContainer>
                         <FooterLinksWrapper>
-                            <FooterLinkItems>
-                                <FooterLinkTitle>Test</FooterLinkTitle>
-                                <FooterLink to='/'>O nas</FooterLink>
-                                <FooterLink to='/'>How it works</FooterLink>
-                                <FooterLink to='/'>lorem</FooterLink>
-                                <FooterLink to='/'>lorem</FooterLink>
-                                <FooterLink to='/'>lorem</FooterLink>
-
-
-                            </FooterLinkItems>
-
-                        </FooterLinksWrapper>
-                        <FooterLinksWrapper>
-                            <FooterLinkItems>
-                                <FooterLinkTitle>Test2</FooterLinkTitle>
-                                <FooterLink to='/'>O nas</FooterLink>
-                                <FooterLink to='/'>How it works</FooterLink>
-                                <FooterLink to='/'>lorem</FooterLink>
-                                <FooterLink to='/'>lorem</FooterLink>
-                                <FooterLink to='/'>lorem</FooterLink>
-
-
-                            </FooterLinkItems>
 
                         </FooterLinksWrapper>
                     </FooterLinksContainer>

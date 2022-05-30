@@ -81,7 +81,7 @@ function LoginForm() {
                 {success && showSuccessMsg(success)}
                 <div className="form-inputs">
                     <label htmlFor="username" className="form-label">
-                        Email Adress
+                        Adres mail
                     </label>
                     <input
                         id="username"
@@ -94,7 +94,7 @@ function LoginForm() {
                 </div>
                 <div className="form-inputs">
                     <label htmlFor="password" className="form-label">
-                        password
+                        Hasło
                     </label>
                     <input id="password" type="password" className="form-input" name="password"
                         placeholder="Wprowadz swoje haslo"
